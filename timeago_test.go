@@ -7,49 +7,49 @@ import (
 import "testing"
 
 func check(t *testing.T, d time.Duration, result string) {
-  start := time.Now()
-  end := time.Now().Add(d)
-  got, error := TimeAgoWithTime(start, end)
+	start := time.Now()
+	end := time.Now().Add(d)
+	got, error := TimeAgoWithTime(start, end)
 	if error == nil {
-	  if got != result {
-	    t.Errorf("Wrong result: %s", got)
-	  }
+		if got != result {
+			t.Errorf("Wrong result: %s", got)
+		}
 	}
 }
 
 func TestThreeHoursAgo(t *testing.T) {
-  d, error := time.ParseDuration("-3h")
-  if error == nil {
-    check(t, d, "3 hours ago")
-  }
+	d, error := time.ParseDuration("-3h")
+	if error == nil {
+		check(t, d, "3 hours ago")
+	}
 }
 
 func TestAnHourAgo(t *testing.T) {
-  d, error := time.ParseDuration("-1.5h")
-  if error == nil {
-    check(t, d, "An hour ago")
-  }
+	d, error := time.ParseDuration("-1.5h")
+	if error == nil {
+		check(t, d, "An hour ago")
+	}
 }
 
 func TestThreeMinutesAgo(t *testing.T) {
-  d, error := time.ParseDuration("-3m")
-  if error == nil {
-    check(t, d, "3 minutes ago")
-  }
+	d, error := time.ParseDuration("-3m")
+	if error == nil {
+		check(t, d, "3 minutes ago")
+	}
 }
 
 func TestAMinuteAgo(t *testing.T) {
-  d, error := time.ParseDuration("-1.2m")
-  if error == nil {
-    check(t, d, "A minute ago")
-  }
+	d, error := time.ParseDuration("-1.2m")
+	if error == nil {
+		check(t, d, "A minute ago")
+	}
 }
 
 func TestJustNow(t *testing.T) {
-  d, error := time.ParseDuration("-1.2s")
-  if error == nil {
-    check(t, d, "Just now")
-  }
+	d, error := time.ParseDuration("-1.2s")
+	if error == nil {
+		check(t, d, "Just now")
+	}
 }
 
 func TestFromNow(t *testing.T) {
@@ -75,5 +75,18 @@ func TestFromNowWithString(t *testing.T) {
 				t.Errorf("Wrong result: %s", got)
 			}
 		}
+	}
+}
+
+func TestAgoText(t *testing.T) {
+	AgoText = ""
+	d, error := time.ParseDuration("-3m")
+	if error == nil {
+		check(t, d, "3 minutes")
+	}
+	AgoText = "depuis"
+	d, error = time.ParseDuration("-3m")
+	if error == nil {
+		check(t, d, "3 minutes depuis")
 	}
 }

@@ -20,5 +20,13 @@ d, _ := time.ParseDuration("-3h")
 start := time.Now()
 end := time.Now().Add(d)
 got, _ := timeago.TimeAgoWithTime(start, end)
+
+// Prints: "Output: 3 minutes ago"
+fmt.Printf("Output: %s\n", got)
+
+timeago.AgoText = ""
+got, _ = timeago.TimeAgoWithTime(start, end)
+
+// Prints: "Output: 3 minutes"
 fmt.Printf("Output: %s\n", got)
 ```
